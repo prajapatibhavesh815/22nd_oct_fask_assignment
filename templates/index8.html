@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Sensor Data</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sensor Data</h1>
+    <div id="sensorData"></div>
+
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        // Event listener for receiving sensor data updates
+        socket.on('updateSensorData', function(data) {
+            var sensorDataDiv = document.getElementById('sensorData');
+            var newSensorData = document.createElement('p');
+            newSensorData.innerHTML = 'Value: ' + data.value + ', Date: ' + data.date;
+            sensorDataDiv.appendChild(newSensorData);
+        });
+    </script>
+</body>
+</html>
